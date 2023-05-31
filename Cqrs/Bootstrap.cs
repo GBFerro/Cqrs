@@ -1,11 +1,12 @@
-﻿using Cqrs.Domain.Commands.CreatePerson;
-using Cqrs.Domain.Commands.DeletePerson;
-using Cqrs.Domain.Commands.UpdatePerson;
-using Cqrs.Domain.Contracts;
-using Cqrs.Domain.Queries.GetPerson;
-using Cqrs.Domain.Queries.ListPerson;
+﻿using Cqrs.Domain.Commands.v1.CreatePerson;
+using Cqrs.Domain.Commands.v1.DeletePerson;
+using Cqrs.Domain.Commands.v1.UpdatePerson;
+using Cqrs.Domain.Contracts.v1;
+using Cqrs.Domain.Core.v1;
+using Cqrs.Domain.Queries.v1.GetPerson;
+using Cqrs.Domain.Queries.v1.ListPerson;
 using Cqrs.Repository;
-using Cqrs.Repository.Repositories;
+using Cqrs.Repository.Repositories.v1;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MongoDB.Driver;
@@ -21,6 +22,7 @@ public static class Bootstrap
         services.AddQueries();
         services.AddMappers();
         services.AddValidators();
+        services.AddMediatR(config => config.RegisterServicesFromAssemblyContaining<BaseHandler>());
     }
 
     public static void AddValidators(this IServiceCollection services)
